@@ -1,0 +1,10 @@
+
+logging:
+  level:
+    ROOT: INFO
+    org.apache.kafka.common.*: WARN
+    org.apache.kafka.clients.NetworkClient: ERROR
+    org.springframework.*: WARN
+    io.github.resilience4j.*: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

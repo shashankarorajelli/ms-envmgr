@@ -1,0 +1,5 @@
+scenarios:
+  - name: "Get http call to an endpoint, learn more at https://artillery.io/docs/guides/getting-started/writing-your-first-test.html"
+    flow:
+      - get:
+          url: "/system/healthcheck"

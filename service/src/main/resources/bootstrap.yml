@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    kubernetes:
+      reload:
+        enabled: false
+        mode: polling
+        period: 1000
+      config:
+        sources:
+          - name: ms-envmgr-db
+          - name: ms-envmgr-actuator
+          - name: ms-envmgr
+          - name: ms-envmgr-stream
+          - name: ms-envmgr-log
+          - name: ms-envmgr-config
+          - name: ms-envmgr-security
+          - name: ms-envmgr-resilience4j

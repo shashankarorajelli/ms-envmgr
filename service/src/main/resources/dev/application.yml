@@ -1,0 +1,19 @@
+server:
+  port: 28888
+  shutdown: graceful
+spring:
+  application:
+    name: ms-envmgr
+  jersey:
+    application-path: api
+  profiles:
+    active: dev
+    include:
+      - actuator
+      - db
+      - security
+      - stream
+      - config
+      - log
+      - resilience4j
+      - springdoc

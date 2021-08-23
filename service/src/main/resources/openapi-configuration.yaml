@@ -1,0 +1,16 @@
+resourcePackages:
+
+prettyPrint: true
+cacheTTL: 60
+openAPI:
+  info:
+    version: '1.0'
+    title:
+    description:
+    termsOfService: http://www.jelli.com/terms/
+    contact:
+      email: info@jelli.com
+    license:
+      name: proprietary
+  servers:
+    - url: /api

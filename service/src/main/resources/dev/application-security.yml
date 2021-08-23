@@ -1,0 +1,6 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://dev-612615.oktapreview.com/oauth2/ausr3nhdtlNFVQXry0h7/v1/keys

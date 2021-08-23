@@ -1,0 +1,51 @@
+openapi: 3.0.1
+info:
+  termsOfService: http://www.jelli.com/terms/
+  contact:
+    email: info@jelli.com
+  license:
+    name: proprietary
+  version: "1.0"
+servers:
+- url: /api
+  variables: {}
+tags:
+- name: envmgrs
+  description: Sample controller
+paths:
+  /v1/envmgrs:
+    get:
+      tags:
+      - envmgrs
+      summary: Sample GET
+      operationId: envmgr
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: string
+  /application.wadl:
+    get:
+      operationId: getWadl
+      responses:
+        default:
+          description: default response
+          content:
+            application/vnd.sun.wadl+xml: {}
+            application/xml: {}
+  /application.wadl/{path}:
+    get:
+      operationId: getExternalGrammar
+      parameters:
+      - name: path
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/xml: {}

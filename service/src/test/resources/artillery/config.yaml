@@ -1,0 +1,26 @@
+config:
+  http:
+    timeout: 120
+  ensure:
+    p95: 3000
+    maxErrorRate: 1
+  phases:
+    - duration: 10
+      arrivalRate: 1
+      name: Warm up
+  environments:
+    dev:
+      target: "http://dev-xapi.dev.us-east-1.jelli.net/${name}"
+      phases:
+        - duration: 10
+          arrivalRate: 2
+          name: Warm up
+        - duration: 20
+          arrivalRate: 5
+          rampTo: 10
+          name: Step up load
+        - pause: 10
+        - duration: 30
+          arrivalRate: 10
+          name: Sustained load
+        - pause: 10

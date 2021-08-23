@@ -1,0 +1,4 @@
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    url: /openapi.yaml

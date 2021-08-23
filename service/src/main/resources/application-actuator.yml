@@ -1,0 +1,29 @@
+management:
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+      sensitive: false
+      show-details: always
+  health:
+    db:
+      enabled: false
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+    binders:
+      enabled: true
+    probes:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /system
+      path-mapping:
+        health: healthcheck
+      exposure:
+        include: health,info,metrics,loggers,beans,mappings,threaddump,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

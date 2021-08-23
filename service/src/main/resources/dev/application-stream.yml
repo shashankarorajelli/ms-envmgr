@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers:
+            - b-1.hermes.bwq053.c5.kafka.us-east-1.amazonaws.com:9092
+            - b-2.hermes.bwq053.c5.kafka.us-east-1.amazonaws.com:9092
+            - b-3.hermes.bwq053.c5.kafka.us-east-1.amazonaws.com:9092
+          auto-create-topics: true
+          auto-add-partitions: true
+          min-partition-count: 1
+          health-timeout: 2
+          configuration:
+            max:
+              block:
+                ms: 3000
