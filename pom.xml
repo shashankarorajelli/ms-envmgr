@@ -88,7 +88,7 @@
 		<imageTag>${project.version}</imageTag>
 		<dockerRegistry>jelli.localRegistry/</dockerRegistry>
 		<jelli.docker.image.app.alias>ms-envmgr-app</jelli.docker.image.app.alias>
-		<jelli.docker.image.kafka.alias>ms-envmgr-kafka</jelli.docker.image.kafka.alias>
+<!--		<jelli.docker.image.kafka.alias>ms-envmgr-kafka</jelli.docker.image.kafka.alias>-->
 		<jelli.docker.image.mysqldb.alias>ms-envmgr-db</jelli.docker.image.mysqldb.alias>
 		<jelli.docker.image.zookeeper.alias>ms-envmgr-zookeeper</jelli.docker.image.zookeeper.alias>
 		<docker.service.name>${dockerRegistry}${project.parent.artifactId}:${imageTag}</docker.service.name>
@@ -195,6 +195,11 @@
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-annotations</artifactId>
 				<version>${swagger.annotations.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.media</groupId>
+				<artifactId>jersey-media-multipart</artifactId>
+				<version>${jersey.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.jersey.media</groupId>

@@ -138,34 +138,34 @@
 								</log>
 							</run>
 						</image>
-						<image>
-							<alias>${jelli.docker.image.kafka.alias}</alias>
-							<name>wurstmeister/kafka</name>
-							<run>
-								<dependsOn>
-									<container>${jelli.docker.image.zookeeper.alias}</container>
-								</dependsOn>
-								<env>
-									<KAFKA_ZOOKEEPER_CONNECT>${jelli.docker.image.zookeeper.alias}:2181
-									</KAFKA_ZOOKEEPER_CONNECT>
-									<KAFKA_LISTENERS>PLAINTEXT://0.0.0.0:9092</KAFKA_LISTENERS>
-									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://${jelli.docker.image.kafka.alias}:9092</KAFKA_ADVERTISED_LISTENERS>
-								</env>
-								<ports>
-									<port>9092:9092</port>
-								</ports>
-								<network>
-									<name>ms-envmgr-local</name>
-									<mode>custom</mode>
-								</network>
-								<wait>
-									<time>10000</time>
-								</wait>
-								<log>
-									<file>${integration.test.log.dir}/ms-envmgr-kafka.log</file>
-								</log>
-							</run>
-						</image>
+<!--						<image>-->
+<!--							<alias>${jelli.docker.image.kafka.alias}</alias>-->
+<!--							<name>wurstmeister/kafka</name>-->
+<!--							<run>-->
+<!--								<dependsOn>-->
+<!--									<container>${jelli.docker.image.zookeeper.alias}</container>-->
+<!--								</dependsOn>-->
+<!--								<env>-->
+<!--									<KAFKA_ZOOKEEPER_CONNECT>${jelli.docker.image.zookeeper.alias}:2181-->
+<!--									</KAFKA_ZOOKEEPER_CONNECT>-->
+<!--									<KAFKA_LISTENERS>PLAINTEXT://0.0.0.0:9092</KAFKA_LISTENERS>-->
+<!--									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://${jelli.docker.image.kafka.alias}:9092</KAFKA_ADVERTISED_LISTENERS>-->
+<!--								</env>-->
+<!--								<ports>-->
+<!--									<port>9092:9092</port>-->
+<!--								</ports>-->
+<!--								<network>-->
+<!--									<name>ms-envmgr-local</name>-->
+<!--									<mode>custom</mode>-->
+<!--								</network>-->
+<!--								<wait>-->
+<!--									<time>10000</time>-->
+<!--								</wait>-->
+<!--								<log>-->
+<!--									<file>${integration.test.log.dir}/ms-envmgr-kafka.log</file>-->
+<!--								</log>-->
+<!--							</run>-->
+<!--						</image>-->
 						<image>
 							<alias>${jelli.docker.image.mysqldb.alias}</alias>
 							<name>mysql:8.0.16</name>

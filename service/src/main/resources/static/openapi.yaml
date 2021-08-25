@@ -11,14 +11,40 @@ servers:
   variables: {}
 tags:
 - name: envmgrs
-  description: Sample controller
+  description: Environment Manager controller
 paths:
-  /v1/envmgrs:
+  /v1/buildWithParameter:
+    post:
+      tags:
+      - envmgrs
+      summary: Build Jenkins job with paramter
+      operationId: buildWithParameter
+      parameters:
+      - name: jobName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: params
+        in: query
+        required: true
+        schema:
+          type: object
+          additionalProperties:
+            type: object
+      responses:
+        default:
+          description: default response
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BuildStatus'
+  /v1/jobs:
     get:
       tags:
       - envmgrs
-      summary: Sample GET
-      operationId: envmgr
+      summary: GET all jenkins jobs
+      operationId: getJobs
       responses:
         default:
           description: default response
@@ -49,3 +75,18 @@ paths:
           description: default response
           content:
             application/xml: {}
+components:
+  schemas:
+    BuildStatus:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            type: object
+        url:
+          type: string
+        completed:
+          type: boolean
+        success:
+          type: boolean
