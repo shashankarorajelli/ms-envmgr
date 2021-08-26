@@ -46,8 +46,20 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/ProjectDataEO'
   /v1/projectdata:
+    get:
+      tags:
+      - projectdata
+      summary: Get all records
+      operationId: getAllRecords
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsResponse'
     post:
       tags:
       - projectdata
@@ -65,15 +77,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectDataEO'
-  /application.wadl:
-    get:
-      operationId: getWadl
-      responses:
-        default:
-          description: default response
-          content:
-            application/vnd.sun.wadl+xml: {}
-            application/xml: {}
   /application.wadl/{path}:
     get:
       operationId: getExternalGrammar
@@ -88,8 +91,24 @@ paths:
           description: default response
           content:
             application/xml: {}
+  /application.wadl:
+    get:
+      operationId: getWadl
+      responses:
+        default:
+          description: default response
+          content:
+            application/vnd.sun.wadl+xml: {}
+            application/xml: {}
 components:
   schemas:
+    KeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
     ObjectId:
       type: object
       properties:
@@ -113,16 +132,23 @@ components:
         defaultLinkPattern:
           type: string
         linkOverrides:
-          type: object
-          additionalProperties:
-            type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         deploymentMetadata:
-          type: object
-          additionalProperties:
-            type: string
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         onEnvDashboard:
           type: boolean
         landingEndpoint:
           type: string
         microserviceName:
           type: string
+    ProjectsResponse:
+      type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectDataEO'

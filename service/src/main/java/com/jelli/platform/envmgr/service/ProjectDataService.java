@@ -24,7 +24,7 @@ public class ProjectDataService {
 
 		ProjectsResponse response = new ProjectsResponse();
 
-		for(ProjectDataDO row : found) {
+		for (ProjectDataDO row : found) {
 			response.addEntry(row.toExternalObject());
 		}
 		return response;

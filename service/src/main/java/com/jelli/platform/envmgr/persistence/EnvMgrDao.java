@@ -31,9 +31,9 @@ public class EnvMgrDao {
 		database = config.getDatabase();
 	}
 
-	public List<ProjectDataDO> getAllProjects()
-	{
-		MongoCollection<ProjectDataDO> collection = database.getCollection(MongoConfig.PROJECT_COLLECTION, ProjectDataDO.class);
+	public List<ProjectDataDO> getAllProjects() {
+		MongoCollection<ProjectDataDO> collection = database.getCollection(MongoConfig.PROJECT_COLLECTION,
+				ProjectDataDO.class);
 
 		List<ProjectDataDO> projectList = new ArrayList<>();
 		collection.find().into(projectList);
@@ -41,10 +41,9 @@ public class EnvMgrDao {
 	}
 
 	public ProjectDataDO findProjectData(String projectKey) {
-		Document query = new Document();
-		query.append("projectKey", projectKey);
 
-		MongoCollection<ProjectDataDO> collection = database.getCollection(MongoConfig.PROJECT_COLLECTION, ProjectDataDO.class);
+		MongoCollection<ProjectDataDO> collection = database.getCollection(MongoConfig.PROJECT_COLLECTION,
+				ProjectDataDO.class);
 
 		FindIterable<ProjectDataDO> found = collection.find(Filters.eq("projectKey", projectKey));
 		return found.first();
@@ -75,8 +74,6 @@ public class EnvMgrDao {
 
 		FindIterable<ProjectDataDO> found = collection.find(Filters.eq("projectKey", projectDataDO.getProjectKey()));
 		return found.first();
-
-
 
 	}
 
