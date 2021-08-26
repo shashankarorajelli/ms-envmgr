@@ -67,6 +67,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
 		<sql.port>3307</sql.port>
+		<mongodb.version>4.2.0</mongodb.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<jackson.version>2.10.3</jackson.version>
 		<spring.cloud.version>Hoxton.SR8</spring.cloud.version>
