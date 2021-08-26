@@ -36,6 +36,10 @@ public class ProjectDataService {
 	}
 
 	public ProjectDataEO findProject(String projectKey) {
-		return dao.findProjectData(projectKey).toExternalObject();
+		ProjectDataDO data = dao.findProjectData(projectKey);
+		if (data != null) {
+			return dao.findProjectData(projectKey).toExternalObject();
+		}
+		return null;
 	}
 }

@@ -47,7 +47,8 @@ public class EnvMgrDao {
 				ProjectDataDO.class);
 
 		FindIterable<ProjectDataDO> found = collection.find(Filters.eq("projectKey", projectKey));
-		return found.first();
+
+		return found.iterator().hasNext() ? found.first() : null;
 	}
 
 	public ProjectDataDO upsertProjectData(ProjectDataDO projectDataDO) {

@@ -61,7 +61,7 @@ public class MongoConfig {
 
 		// @todo: extract this to a mongo configuration or schema management script.
 		MongoCollection<Document> projectDataCollection = database.getCollection(PROJECT_COLLECTION);
-		projectDataCollection.createIndex(Indexes.ascending("project_key_unique"), new IndexOptions().unique(true));
+		projectDataCollection.createIndex(Indexes.ascending("projectKey"), new IndexOptions().unique(true));
 	}
 
 	@Bean
