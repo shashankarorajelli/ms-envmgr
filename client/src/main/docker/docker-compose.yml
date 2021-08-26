@@ -1,0 +1,23 @@
+version: '3.0'
+
+services:
+  mongodb:
+    build:
+      context: ./mongodb
+      dockerfile: Dockerfile
+    image: @jelli.docker.image.mongo.alias@:latest
+    container_name: @jelli.docker.image.mongo.alias@
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: envmgr
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    logging:
+      driver: local
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
