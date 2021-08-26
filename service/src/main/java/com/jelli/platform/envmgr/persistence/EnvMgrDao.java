@@ -2,7 +2,6 @@ package com.jelli.platform.envmgr.persistence;
 
 import com.jelli.platform.envmgr.config.MongoConfig;
 import com.jelli.platform.envmgr.model.ProjectDataDO;
-import com.jelli.platform.envmgr.model.ProjectDataEO;
 import com.mongodb.MongoWriteException;
 import com.mongodb.WriteError;
 import com.mongodb.client.FindIterable;

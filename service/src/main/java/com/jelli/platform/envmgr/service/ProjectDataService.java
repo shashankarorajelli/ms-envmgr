@@ -4,8 +4,6 @@ import com.jelli.platform.envmgr.model.ProjectDataDO;
 import com.jelli.platform.envmgr.model.ProjectDataEO;
 import com.jelli.platform.envmgr.model.ProjectsResponse;
 import com.jelli.platform.envmgr.persistence.EnvMgrDao;
-import com.mongodb.client.FindIterable;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;

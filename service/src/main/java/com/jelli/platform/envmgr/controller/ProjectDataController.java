@@ -1,14 +1,11 @@
 package com.jelli.platform.envmgr.controller;
 
-import com.jelli.platform.envmgr.model.ProjectDataDO;
 import com.jelli.platform.envmgr.model.ProjectDataEO;
 import com.jelli.platform.envmgr.model.ProjectsResponse;
 import com.jelli.platform.envmgr.service.ProjectDataService;
-import com.mongodb.client.FindIterable;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
