@@ -52,12 +52,6 @@ public class ProjectDataController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Operation(summary = "get project data")
 	public ProjectDataEO getProjectData(@PathParam("project_key") String projectKey) {
-		ProjectDataEO response = projectDataService.findProject(projectKey);
-		if (response == null) {
-			throw new WebApplicationException(
-					"Document not found", Response.Status.NOT_FOUND
-			);
-		}
-		return response;
+		return projectDataService.findProject(projectKey);
 	}
 }
