@@ -36,7 +36,7 @@ public class EnvmgrServiceImpl implements EnvmgrService {
 	protected String API_CONTEXT_PATH;
 	private Header header;
 
-	//TODO: fix property expansion from pom, some weird issue their.
+	// TODO: fix property expansion from pom, some weird issue their.
 //	@Value("${jenkins.url}")
 	private String jenkinsUrl;
 //	@Value("${jenkins.user}")
