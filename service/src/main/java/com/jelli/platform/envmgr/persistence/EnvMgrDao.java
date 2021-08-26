@@ -8,6 +8,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
+import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import lombok.extern.slf4j.Slf4j;
@@ -52,24 +54,10 @@ public class EnvMgrDao {
 		MongoCollection<ProjectDataDO> collection = database.getCollection(MongoConfig.PROJECT_COLLECTION,
 				ProjectDataDO.class);
 
-		// ProjectResponse response = new ProjectResponse();
-
 		Document filter = new Document();
 		filter.append("projectKey", projectDataDO.getProjectKey());
 
-		try {
-			InsertOneResult insertResult = collection.insertOne(projectDataDO);
-			System.out.println(insertResult);
-		} catch (MongoWriteException me) {
-			WriteError error = me.getError();
-
-			if (Objects.equals(error.getCategory().toString(), "DUPLICATE_KEY")) {
-				projectDataDO.setId(null);
-				UpdateResult updateResult = collection.replaceOne(filter, projectDataDO);
-				System.out.println(updateResult);
-			}
-
-		}
+		collection.replaceOne(filter, projectDataDO, new ReplaceOptions().upsert(true));
 
 		FindIterable<ProjectDataDO> found = collection.find(Filters.eq("projectKey", projectDataDO.getProjectKey()));
 		return found.first();
