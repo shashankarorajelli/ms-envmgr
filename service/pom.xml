@@ -11,13 +11,24 @@
 	<version>1.0</version>
 	<name>service</name>
 	<packaging>jar</packaging>
-
+	<properties>
+		<jenkins.url>https://jenkins-1.ci.jelli.net/</jenkins.url>
+		<jenkins.user>EnvironManager</jenkins.user>
+		<jenkins.token>115b50a45c767a9c758345a566d98ae532</jenkins.token>
+		<jenkins.context.path>api</jenkins.context.path>
+		<jenkins.api.response.type>json</jenkins.api.response.type>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>common</artifactId>
 			<version>1.0</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.kev1nst</groupId>
+			<artifactId>jenkins-rest</artifactId>
+		<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
@@ -73,6 +84,10 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
@@ -119,6 +134,16 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.kev1nst</groupId>
+			<artifactId>jenkins-rest</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.clarolab.jenkins</groupId>
+			<artifactId>jenkins-rest-api-client</artifactId>
+			<version>1.1.2</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -206,6 +231,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<delimiters>
+						<delimiter>@</delimiter>
+					</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>

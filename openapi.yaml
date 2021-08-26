@@ -11,16 +11,16 @@ servers:
   variables: {}
 tags:
 - name: envmgrs
-  description: Sample controller
+  description: Environment Manager controller
 - name: projectdata
   description: Project Data controller
 paths:
-  /v1/envmgrs:
+  /v1/jobs:
     get:
       tags:
       - envmgrs
-      summary: Sample GET
-      operationId: envmgr
+      summary: GET all jenkins jobs
+      operationId: getJobs
       responses:
         default:
           description: default response
@@ -28,25 +28,24 @@ paths:
             application/json:
               schema:
                 type: string
-  /v1/projectdata/{project_key}:
-    get:
+  /v1/buildWithParameter:
+    post:
       tags:
-      - projectdata
-      summary: get project data
-      operationId: getProjectData
-      parameters:
-      - name: project_key
-        in: path
-        required: true
-        schema:
-          type: string
+      - envmgrs
+      summary: Build Jenkins job with paramter
+      operationId: buildWithParameter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvmgrEO'
       responses:
         default:
           description: default response
           content:
-            application/json:
+            '*/*':
               schema:
-                $ref: '#/components/schemas/ProjectDataEO'
+                $ref: '#/components/schemas/BuildStatus'
   /v1/projectdata:
     get:
       tags:
@@ -77,6 +76,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectDataEO'
+  /v1/projectdata/{project_key}:
+    get:
+      tags:
+      - projectdata
+      summary: get project data
+      operationId: getProjectData
+      parameters:
+      - name: project_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDataEO'
+  /application.wadl:
+    get:
+      operationId: getWadl
+      responses:
+        default:
+          description: default response
+          content:
+            application/vnd.sun.wadl+xml: {}
+            application/xml: {}
   /application.wadl/{path}:
     get:
       operationId: getExternalGrammar
@@ -91,17 +118,30 @@ paths:
           description: default response
           content:
             application/xml: {}
-  /application.wadl:
-    get:
-      operationId: getWadl
-      responses:
-        default:
-          description: default response
-          content:
-            application/vnd.sun.wadl+xml: {}
-            application/xml: {}
 components:
   schemas:
+    BuildStatus:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            type: object
+        url:
+          type: string
+        success:
+          type: boolean
+        completed:
+          type: boolean
+    EnvmgrEO:
+      type: object
+      properties:
+        jobName:
+          type: string
+        hashMap:
+          type: object
+          additionalProperties:
+            type: object
     KeyValue:
       type: object
       properties:
