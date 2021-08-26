@@ -5,8 +5,6 @@ services:
     build:
       context: ./mongodb
       dockerfile: Dockerfile
-    image: @jelli.docker.image.mongo.alias@:latest
-    container_name: @jelli.docker.image.mongo.alias@
     restart: always
     ports:
       - "27017:27017"
