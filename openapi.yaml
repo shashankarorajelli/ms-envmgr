@@ -12,6 +12,8 @@ servers:
 tags:
 - name: envmgrs
   description: Sample controller
+- name: projectdata
+  description: Project Data controller
 paths:
   /v1/envmgrs:
     get:
@@ -26,15 +28,55 @@ paths:
             application/json:
               schema:
                 type: string
-  /application.wadl:
+  /v1/projectdata/{project_key}:
     get:
-      operationId: getWadl
+      tags:
+      - projectdata
+      summary: get project data
+      operationId: getProjectData
+      parameters:
+      - name: project_key
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: default response
           content:
-            application/vnd.sun.wadl+xml: {}
-            application/xml: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDataEO'
+  /v1/projectdata:
+    get:
+      tags:
+      - projectdata
+      summary: Get all records
+      operationId: getAllRecords
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsResponse'
+    post:
+      tags:
+      - projectdata
+      summary: Upsert project data
+      operationId: upsertProjectData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectDataEO'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDataEO'
   /application.wadl/{path}:
     get:
       operationId: getExternalGrammar
@@ -49,3 +91,64 @@ paths:
           description: default response
           content:
             application/xml: {}
+  /application.wadl:
+    get:
+      operationId: getWadl
+      responses:
+        default:
+          description: default response
+          content:
+            application/vnd.sun.wadl+xml: {}
+            application/xml: {}
+components:
+  schemas:
+    KeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    ObjectId:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int32
+        date:
+          type: string
+          format: date-time
+    ProjectDataEO:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        projectKey:
+          type: string
+        friendlyName:
+          type: string
+        backendVersionEndpoint:
+          type: string
+        defaultLinkPattern:
+          type: string
+        linkOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        deploymentMetadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        onEnvDashboard:
+          type: boolean
+        landingEndpoint:
+          type: string
+        microserviceName:
+          type: string
+    ProjectsResponse:
+      type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectDataEO'
