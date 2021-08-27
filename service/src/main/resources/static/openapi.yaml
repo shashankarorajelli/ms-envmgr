@@ -71,6 +71,18 @@ paths:
       - projectdata
       summary: Get all records
       operationId: getAllRecords
+  /v1/nexus/{artifactName}/getReleaseVersions:
+    get:
+      tags:
+      - nexus
+      summary: Returns a list of versions for the given artifact name
+      operationId: getReleaseVersions
+      parameters:
+      - name: artifactName
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: default response
@@ -88,6 +100,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ProjectDataEO'
+                type: array
+                items:
+                  type: string
+  /v1/nexus/{artifactName}/getSnapshotVersions:
+    get:
+      tags:
+      - nexus
+      summary: Returns a list of snapshot versions for the given artifact name
+      operationId: getSnapshotVersions
+      parameters:
+      - name: artifactName
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: default response
@@ -95,6 +122,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectDataEO'
+                type: array
+                items:
+                  type: string
   /application.wadl:
     get:
       operationId: getWadl
@@ -113,6 +143,15 @@ paths:
         required: true
         schema:
           type: string
+                type: object
+                additionalProperties:
+                  type: string
+  /v1/nexus/getArtifactNames:
+    get:
+      tags:
+      - nexus
+      summary: Returns a list of artifact names from Nexus
+      operationId: getArtifactNames
       responses:
         default:
           description: default response
