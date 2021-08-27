@@ -5,6 +5,7 @@ services:
     build:
       context: ./mongodb
       dockerfile: Dockerfile
+    image: jelli/mongodb:latest
     restart: always
     ports:
       - "27017:27017"
@@ -19,3 +20,16 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+  envmgr:
+    build:
+      context: ../service
+      dockerfile: Dockerfile
+    image: jelli/envmgr:latest
+    environment:
+      - MONGODB_URI=mongodb
+    restart: always
+    ports:
+      - "28888:28888"
+      - "443:28888"
+    depends_on:
+      - mongodb

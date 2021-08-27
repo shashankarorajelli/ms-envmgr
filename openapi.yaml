@@ -46,6 +46,25 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/BuildStatus'
+  /v1/projectdata/{project_key}:
+    get:
+      tags:
+      - projectdata
+      summary: get project data
+      operationId: getProjectData
+      parameters:
+      - name: project_key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDataEO'
   /v1/projectdata:
     get:
       tags:
@@ -69,25 +88,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ProjectDataEO'
-      responses:
-        default:
-          description: default response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProjectDataEO'
-  /v1/projectdata/{project_key}:
-    get:
-      tags:
-      - projectdata
-      summary: get project data
-      operationId: getProjectData
-      parameters:
-      - name: project_key
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         default:
           description: default response
@@ -127,12 +127,12 @@ components:
           type: object
           additionalProperties:
             type: object
-        url:
-          type: string
-        success:
-          type: boolean
         completed:
           type: boolean
+        success:
+          type: boolean
+        url:
+          type: string
     EnvmgrEO:
       type: object
       properties:
