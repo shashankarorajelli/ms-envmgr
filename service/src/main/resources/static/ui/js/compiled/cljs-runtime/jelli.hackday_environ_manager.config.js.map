@@ -1,0 +1,1 @@
+{"version":3,"sources":["jelli/hackday_environ_manager/config.cljs"],"mappings":";AAEA,AAAKA,oDACMC","names":["jelli.hackday-environ-manager.config/debug?","js/goog.DEBUG"],"sourcesContent":["(ns jelli.hackday-environ-manager.config)\n\n(def debug?\n  ^boolean goog.DEBUG)\n"]}

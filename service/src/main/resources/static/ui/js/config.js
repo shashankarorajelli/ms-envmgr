@@ -1,0 +1,1 @@
+const envMgrBackendUrl = "/api/";
