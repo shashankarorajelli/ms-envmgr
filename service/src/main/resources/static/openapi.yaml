@@ -12,6 +12,8 @@ servers:
 tags:
 - name: envmgrs
   description: Environment Manager controller
+- name: nexus
+  description: Environment Manager controller
 - name: projectdata
   description: Project Data controller
 paths:
@@ -46,14 +48,34 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/BuildStatus'
-  /v1/projectdata/{project_key}:
+  /v1/nexus/getArtifactNames:
     get:
       tags:
-      - projectdata
-      summary: get project data
-      operationId: getProjectData
+      - nexus
+      summary: Returns a list of artifact names from Nexus
+      operationId: getArtifactNames
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /v1/nexus/{repositoryName}/{artifactName}/getReleaseVersions:
+    get:
+      tags:
+      - nexus
+      summary: Returns a list of versions for the given artifact name
+      operationId: getReleaseVersions
       parameters:
-      - name: project_key
+      - name: repositoryName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactName
         in: path
         required: true
         schema:
@@ -64,7 +86,35 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProjectDataEO'
+                type: array
+                items:
+                  type: string
+  /v1/nexus/{repositoryName}/{artifactName}/getSnapshotVersions:
+    get:
+      tags:
+      - nexus
+      summary: Returns a list of snapshot versions for the given artifact name
+      operationId: getSnapshotVersions
+      parameters:
+      - name: repositoryName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
   /v1/projectdata:
     get:
       tags:
@@ -95,15 +145,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectDataEO'
-  /application.wadl:
+  /v1/projectdata/{project_key}:
     get:
-      operationId: getWadl
+      tags:
+      - projectdata
+      summary: get project data
+      operationId: getProjectData
+      parameters:
+      - name: project_key
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: default response
           content:
-            application/vnd.sun.wadl+xml: {}
-            application/xml: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDataEO'
   /application.wadl/{path}:
     get:
       operationId: getExternalGrammar
@@ -118,6 +178,15 @@ paths:
           description: default response
           content:
             application/xml: {}
+  /application.wadl:
+    get:
+      operationId: getWadl
+      responses:
+        default:
+          description: default response
+          content:
+            application/vnd.sun.wadl+xml: {}
+            application/xml: {}
 components:
   schemas:
     BuildStatus:
@@ -129,10 +198,10 @@ components:
             type: object
         completed:
           type: boolean
-        success:
-          type: boolean
         url:
           type: string
+        success:
+          type: boolean
     EnvmgrEO:
       type: object
       properties:
