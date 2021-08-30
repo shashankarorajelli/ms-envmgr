@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.jelli.platform.envmgr.model.NexusResponseEO;
+import com.jelli.platform.envmgr.model.NexusResponseEO;
 import com.jelli.platform.envmgr.service.NexusService;
 import lombok.SneakyThrows;
 //import okhttp3.Authenticator;
@@ -73,7 +73,8 @@ public class NexusServiceImpl implements NexusService {
 			ResponseBody responseBody = response.body();
 			System.out.println(objectMapper.writeValueAsString(responseBody));
 			InputStream bodyStream = responseBody == null ? null : responseBody.byteStream();
-//			NexusResponseEO[] nexusResponseEOS = objectMapper.readValue(bodyStream, NexusResponseEO[].class);
+			NexusResponseEO[] nexusResponseEOS = objectMapper.readValue(bodyStream, NexusResponseEO[].class);
+			System.out.println("============ Array Way size: " + nexusResponseEOS.length);
 			System.out.println("==============Hello1: " + objectMapper.writeValueAsString(bodyStream));
 			List<String> versions = objectMapper.readTree(bodyStream).findValuesAsText("version");
 //			List<String> artifactVersionList = new ArrayList<>();

@@ -12,24 +12,11 @@ servers:
 tags:
 - name: envmgrs
   description: Environment Manager controller
+- name: nexus
+  description: Nexus controller
 - name: projectdata
   description: Project Data controller
-- name: nexus
-  description: Environment Manager controller
 paths:
-  /v1/jobs:
-    get:
-      tags:
-      - envmgrs
-      summary: GET all jenkins jobs
-      operationId: getJobs
-      responses:
-        default:
-          description: default response
-          content:
-            application/json:
-              schema:
-                type: string
   /v1/buildWithParameter:
     post:
       tags:
@@ -67,12 +54,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectDataEO'
-  /v1/projectdata:
+  /v1/jobs:
     get:
       tags:
-      - projectdata
-      summary: Get all records
-      operationId: getAllRecords
+      - envmgrs
+      summary: GET all jenkins jobs
+      operationId: getJobs
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/nexus/getArtifactNames:
+    get:
+      tags:
+      - nexus
+      summary: Returns a list of artifact names from Nexus
+      operationId: getArtifactNames
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
   /v1/nexus/{artifactName}/getReleaseVersions:
     get:
       tags:
@@ -91,17 +100,6 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProjectsResponse'
-    post:
-      tags:
-      - projectdata
-      summary: Upsert project data
-      operationId: upsertProjectData
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProjectDataEO'
                 type: array
                 items:
                   type: string
@@ -123,6 +121,38 @@ paths:
           content:
             application/json:
               schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /v1/projectdata:
+    get:
+      tags:
+      - projectdata
+      summary: Get all records
+      operationId: getAllRecords
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectsResponse'
+    post:
+      tags:
+      - projectdata
+      summary: Upsert project data
+      operationId: upsertProjectData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectDataEO'
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
                 $ref: '#/components/schemas/ProjectDataEO'
                 type: array
                 items:
@@ -130,12 +160,28 @@ paths:
   /application.wadl:
     get:
       operationId: getWadl
+
+  /v1/projectdata/{project_key}:
+    get:
+      tags:
+      - projectdata
+      summary: get project data
+      operationId: getProjectData
+      parameters:
+      - name: project_key
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: default response
           content:
             application/vnd.sun.wadl+xml: {}
             application/xml: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectDataEO'
   /application.wadl/{path}:
     get:
       operationId: getExternalGrammar
@@ -159,6 +205,15 @@ paths:
           description: default response
           content:
             application/xml: {}
+  /application.wadl:
+    get:
+      operationId: getWadl
+      responses:
+        default:
+          description: default response
+          content:
+            application/vnd.sun.wadl+xml: {}
+            application/xml: {}
 components:
   schemas:
     BuildStatus:
@@ -174,6 +229,10 @@ components:
           type: boolean
         url:
           type: string
+        url:
+          type: string
+        success:
+          type: boolean
     EnvmgrEO:
       type: object
       properties:
