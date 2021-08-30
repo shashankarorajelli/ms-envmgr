@@ -38,16 +38,18 @@ public class NexusController {
 	}
 
 	@GET
-	@Path("/{artifactName}/getReleaseVersions")
+	@Path("/{repositoryName}/{artifactName}/getReleaseVersions")
 	@Operation(summary = "Returns a list of versions for the given artifact name", tags = { "nexus" })
-	public List<String> getReleaseVersions(@PathParam("artifactName") String artifactName) {
-		return nexusService.getReleaseVersions(artifactName);
+	public List<String> getReleaseVersions(@PathParam("repositoryName") String repositoryName,
+			@PathParam("artifactName") String artifactName) {
+		return nexusService.getReleaseVersions(repositoryName, artifactName);
 	}
 
 	@GET
-	@Path("/{artifactName}/getSnapshotVersions")
+	@Path("/{repositoryName}/{artifactName}/getSnapshotVersions")
 	@Operation(summary = "Returns a list of snapshot versions for the given artifact name", tags = { "nexus" })
-	public Map<String, String> getSnapshotVersions(@PathParam("artifactName") String artifactName) {
-		return nexusService.getSnapshotVersions(artifactName);
+	public Map<String, String> getSnapshotVersions(@PathParam("repositoryName") String repositoryName,
+			@PathParam("artifactName") String artifactName) {
+		return nexusService.getSnapshotVersions(repositoryName, artifactName);
 	}
 }

@@ -7,7 +7,7 @@ public interface NexusService {
 
 	List<String> getArtifactNames();
 
-	List<String> getReleaseVersions(String artifactName);
+	List<String> getReleaseVersions(String repositoryName, String artifactName);
 
-	Map<String, String> getSnapshotVersions(String artifactName);
+	Map<String, String> getSnapshotVersions(String repositoryName, String artifactName);
 }
